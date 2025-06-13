@@ -2,15 +2,22 @@ import { defineConfig } from 'wxt';
 
 // See https://wxt.dev/api/config.html
 export default defineConfig({
+  // 相对于项目根目录
+  srcDir: "src",             // 默认值："."
+  outDir: "dist",            // 默认值：".output"
+
+
   modules: ['@wxt-dev/module-vue'],
   manifest: {
     permissions: [
       "scripting",
-      "activeTab",
       "webRequest",
       "webRequestBlocking",
       "storage"
     ],
-    host_permissions: ["<all_urls>"]
+    web_accessible_resources: [{
+      resources: ["injected.js"], // 允许被页面访问的资源
+      matches: ["*://*/*"]        // 允许的域名
+    }]
   }
 });
