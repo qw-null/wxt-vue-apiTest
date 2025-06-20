@@ -1,4 +1,14 @@
 @charset "UTF-8";@import 'element-plus/dist/index.css';
+.demo[data-v-3cf84248] {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100px;
+    width: 200px;
+    background-color: red;
+    z-index: 3000;
+}
+
 :host {
     /* Element Plus 样式需穿透 Shadow DOM */
 

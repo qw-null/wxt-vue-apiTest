@@ -10,7 +10,7 @@ var background = function() {
   const definition = defineBackground(() => {
     console.log("Hello background!", { id: browser.runtime.id });
     browser.runtime.onMessage.addListener((message) => {
-      if (message.action === "CTG_logResponse") {
+      if (message.action === "CTG_toBackgroundResponse") {
         console.log("URL:", message.response);
       }
     });

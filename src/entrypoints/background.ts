@@ -1,37 +1,8 @@
 export default defineBackground(() => {
   console.log('Hello background!', { id: browser.runtime.id });
-  // 存储已捕获的请求URL
-  let targetUrls: string;
-  // browser.webRequest.onBeforeRequest.addListener(
-  //   (details) => {
-  //     console.log("details信息", details);
-  //     if (details.url.includes("businessTrip")) {
-  //       targetUrls = details.url;
-  //       console.log("拦截到", details.url);
-  //       // processUrls(targetUrls)
-  //     }
-  //     // 非目标请求直接放行
-  //     return { cancel: false };
-  //   },
-  //   { urls: ["<all_urls>"] },
-  //   ["requestBody"]
-  // );
-  // browser.webRequest.onCompleted.addListener(
-  //   async(details) => {
-  //     // console.log("44444details信息", details);
-  //     if (details.url.includes("businessTrip")&&details.url.includes("?_t=")) {
-  //       targetUrls = details.url;
-  //       console.log("==拦截到-----------", details.url);
-  //     }
-  //     // 非目标请求直接放行
-  //     return { cancel: false };
-  //   },
-  //   { urls: ["<all_urls>"],types:["xmlhttprequest"] },
-  //   ["responseHeaders"] 
-  // );
-
+  // 功能：监听来自content script的消息
   browser.runtime.onMessage.addListener((message) => {
-    if (message.action === "CTG_logResponse") {
+    if (message.action === "CTG_toBackgroundResponse") {
       console.log("URL:", message.response);
       // 处理真实需求代码
     //   if(message.url.includes("businessTrip")&&message.url.includes("?_t=")){
@@ -41,4 +12,5 @@ export default defineBackground(() => {
     // }
       }
   });
+
 });
