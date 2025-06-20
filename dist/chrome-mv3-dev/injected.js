@@ -4,19 +4,25 @@ var injected = function() {
     if (arg == null || typeof arg === "function") return { main: arg };
     return arg;
   }
+  const utils = {
+    init: () => console.log("Utils initialized")
+  };
+  injected;
   const definition = defineUnlistedScript(() => {
+    utils.init();
     const originalXHROpen = XMLHttpRequest.prototype.open;
     const originalXHRSend = XMLHttpRequest.prototype.send;
     XMLHttpRequest.prototype.open = function(method, url) {
-      this._url = url;
+      this._url = url instanceof URL ? url.toString() : url;
       originalXHROpen.apply(this, arguments);
     };
     XMLHttpRequest.prototype.send = function(body) {
       this.addEventListener("readystatechange", () => {
         if (this.readyState === 4) {
           const response = this.responseText;
+          console.log("===抓到信息====", response);
           window.postMessage({
-            type: "NETWORK_RESPONSE",
+            type: "CTG_NETWORK_RESPONSE",
             url: this._url,
             response
           }, "*");

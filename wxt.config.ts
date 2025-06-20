@@ -8,15 +8,19 @@ export default defineConfig({
 
 
   modules: ['@wxt-dev/module-vue'],
+  runner: {
+    startUrls: ["https://www.baidu.com"],
+  },
   manifest: {
     permissions: [
+      "<all_urls>",
       "scripting",
       "webRequest",
       "webRequestBlocking",
       "storage"
     ],
     web_accessible_resources: [{
-      resources: ["injected.js"], // 允许被页面访问的资源
+      resources: ["injected.js","element-plus.css"], // 允许被页面访问的资源
       matches: ["*://*/*"]        // 允许的域名
     }]
   }

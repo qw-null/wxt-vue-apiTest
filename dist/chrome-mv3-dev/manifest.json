@@ -4,6 +4,7 @@
   "description": "manifest.json description",
   "version": "0.0.0",
   "permissions": [
+    "<all_urls>",
     "scripting",
     "webRequest",
     "webRequestBlocking",
@@ -13,7 +14,8 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "injected.js"
+        "injected.js",
+        "element-plus.css"
       ],
       "matches": [
         "*://*/*"
