@@ -1,8 +1,8 @@
 {
-  "name": "wxt-vue-starter",
-  "description": "manifest.json description",
+  "name": "科研院智能台账助手",
+  "description": "科研院智能台账助手：适配于三峡数字商旅系统报销系统项目台账自动生成&管理。",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0-alpha",
   "type": "module",
   "scripts": {
     "dev": "wxt",
@@ -15,6 +15,7 @@
     "postinstall": "wxt prepare"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^2.3.1",
     "element-plus": "^2.10.2",
     "vue": "^3.5.13"
   },

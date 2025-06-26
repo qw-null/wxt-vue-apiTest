@@ -1,8 +1,15 @@
 {
   "manifest_version": 3,
-  "name": "wxt-vue-starter",
-  "description": "manifest.json description",
-  "version": "0.0.0",
+  "name": "科研院智能台账助手",
+  "description": "科研院智能台账助手：适配于三峡数字商旅系统报销系统项目台账自动生成&管理。",
+  "version": "1.0.0",
+  "icons": {
+    "16": "icon/16.png",
+    "32": "icon/32.png",
+    "48": "icon/48.png",
+    "64": "icon/64.png",
+    "128": "icon/128.png"
+  },
   "permissions": [
     "<all_urls>",
     "scripting",
@@ -37,6 +44,7 @@
       }
     }
   },
+  "version_name": "1.0.0-alpha",
   "background": {
     "service_worker": "background.js"
   },

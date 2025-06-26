@@ -1,11 +1,12 @@
 <script lang="ts" setup>
-import HelloWorld from '@/components/HelloWorld.vue';
+import FontPage from '@/components/FontPage.vue';
 </script>
 
 <template>
-  <HelloWorld/>
+  <FontPage/>
 </template>
 
 <style scoped>
+
 
 </style>

@@ -9,9 +9,15 @@ var background = function() {
   const browser = browser$1;
   const definition = defineBackground(() => {
     console.log("Hello background!", { id: browser.runtime.id });
-    browser.runtime.onMessage.addListener((message) => {
-      if (message.action === "CTG_toBackgroundResponse") {
-        console.log("URL:", message.response);
+    browser.runtime.onMessage.addListener((message, sender, callback) => {
+      if (message.action === "CTG_toBackgroundResponse") ;
+      if (message.action === "getCurrentUrl") {
+        browser.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+          var _a2;
+          const url = ((_a2 = tabs[0]) == null ? void 0 : _a2.url) || "无法获取 URL";
+          callback({ url });
+        });
+        return true;
       }
     });
   });

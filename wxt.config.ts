@@ -5,6 +5,7 @@ export default defineConfig({
   // 相对于项目根目录
   srcDir: "src",             // 默认值："."
   outDir: "dist",            // 默认值：".output"
+  publicDir: "public",       // 默认图标存放目录
 
 
   modules: ['@wxt-dev/module-vue'],
@@ -17,11 +18,12 @@ export default defineConfig({
       "scripting",
       "webRequest",
       "webRequestBlocking",
-      "storage"
+      "storage",
+      "tabs"
     ],
     web_accessible_resources: [{
       resources: ["injected.js"], // 允许被页面访问的资源
       matches: ["*://*/*"]        // 允许的域名，全部 ["*://*/*"]
-    }]
+    }],
   }
 });

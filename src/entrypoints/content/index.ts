@@ -12,6 +12,7 @@ export default defineContentScript({
   async main(ctx) {
     const showPopup = ref(false);  // 创建响应式状态控制弹窗显隐
     const msg = ref({})
+    const urlPage = ref('')
     const eventBus = new EventTarget();
     let resMsg = {}
     // 功能1：页面注入SPA页面
@@ -24,7 +25,7 @@ export default defineContentScript({
           showPopup,
           msg
         });
-        // 监听外部事件 [!code ++:5]
+        // 监听外部事件
         eventBus.addEventListener('OPEN_POPUP', () => {
           console.log('监听到外部事件Open——popup',resMsg);
           showPopup.value = true;
@@ -63,12 +64,11 @@ export default defineContentScript({
       const target = e.target as HTMLElement;
       console.log('点击了按钮click click', target.innerText);
 
-      if (target.innerText == '新增') {
+      if (target.innerText == '保存草稿') {
         // 向后台脚本发送消息
-        console.log("=================点击了新增按钮");
+        console.log("=================点击了保存草稿按钮");
         eventBus.dispatchEvent(new CustomEvent('OPEN_POPUP'));
       }
-
     })
 
   }
