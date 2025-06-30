@@ -5,11 +5,18 @@ import 'element-plus/dist/index.css';
 
 
 export default defineContentScript({
-  matches: ['*://*/*'],
+  // matches: ['*://*/*'],
+  matches: ['https://rs.ctg.com.cn/*'],
   // 设置 cssInjectionMode
   cssInjectionMode: 'ui',
-  // matches: ['https://rs.ctg.com.cn:9000/#/reimbs/businessTrip/*'],
   async main(ctx) {
+    // 动态检测目标页面
+    const isTargetPage =
+      window.location.port === '9000' &&
+      window.location.hash.startsWith('#/reimbs/businessTrip');
+    // 非目标页面直接退出
+    if (!isTargetPage) return;
+
     const showPopup = ref(false);  // 创建响应式状态控制弹窗显隐
     const msg = ref({})
     const urlPage = ref('')
@@ -27,7 +34,7 @@ export default defineContentScript({
         });
         // 监听外部事件
         eventBus.addEventListener('OPEN_POPUP', () => {
-          console.log('监听到外部事件Open——popup',resMsg);
+          console.log('监听到外部事件Open——popup', resMsg);
           showPopup.value = true;
           msg.value = resMsg;
         });
@@ -42,19 +49,17 @@ export default defineContentScript({
     ui.mount();
 
     // 功能2：注入JS脚本
-    await injectScript("/injected.js", {
-      keepInDom: true // 保持脚本持久化
-    });
+    await injectScript("/injected.js", {keepInDom: true });// keepInDom: true - 保持脚本持久化
     // --------监听 injected 脚本发送的消息
     window.addEventListener('message', (event) => {
-      if (event.data?.type === "CTG_NETWORK_RESPONSE") {
+      if (event.data?.type === "CTG_NETWORK_RESPONSE") { 
         // 将数据转发到后台脚本 (background.ts)
         console.log("将数据转发到后台脚本", event.data);
         resMsg = event.data;
         browser.runtime.sendMessage({
           action: "CTG_toBackgroundResponse",
           url: event.data.url,
-          response: event.data.response
+          response: event.data
         });
       }
     });

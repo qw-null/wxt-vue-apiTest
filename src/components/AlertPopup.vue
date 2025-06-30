@@ -1,6 +1,7 @@
 <template>
     <div class="demo">
-        <el-drawer v-model="props.showPopup.value" title="内部科研项目支出台账" direction="ltr" :before-close="handleClose" class="el-drawer"
+        <div class="tipsText">（点击保存草稿生成项目台账）➡️</div>
+        <el-drawer v-model="props.showPopup.value" title="内部科研项目支出台账" direction="ltr" :before-close="handleCloseDialog" class="el-drawer"
             size="50%">
             <div class="drawer-container">
                 <el-descriptions class="margin-top" :column="3" size="small" border>
@@ -34,7 +35,7 @@
                                 Remarks
                             </div>
                         </template>
-                        <el-tag>School</el-tag>
+                        School
                     </el-descriptions-item>
                     <el-descriptions-item>
                         <template #label>
@@ -46,22 +47,28 @@
                     </el-descriptions-item>
                 </el-descriptions>
             </div>
+            信息：{{ props.msg }}
             <template #footer>
                 <div class="drawer-footer">
                     <el-button type="primary" :icon="SuccessFilled" @click="openDialog">确定</el-button>
-                    <el-button type="info" :icon="CircleCloseFilled">取消</el-button>
+                    <el-button type="info" :icon="CircleCloseFilled" @click="handleCloseDialog">取消</el-button>
                 </div>
             </template>
 
         </el-drawer>
-        <el-dialog v-model="dialogVisible" title="Tips" width="500"
-            :before-close="handleCloseDialog">1111111</el-dialog>
+        <el-dialog v-model="dialogVisible" title="🔔 信息确认" width="500" center>
+            <span class="confirm-txt">是否上传《差旅费报销单》用于项目台账生成？</span>
+            <template #footer>
+                <el-button type="info" @click="dialogVisible=false">取消</el-button>
+                <el-button type="primary" @click="handleCloseDialog">上传</el-button>
+            </template>
+        </el-dialog>
     </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { SuccessFilled,CircleCloseFilled } from '@element-plus/icons-vue'
+import { SuccessFilled,CircleCloseFilled,Right } from '@element-plus/icons-vue'
 
 const props = defineProps(['showPopup', 'msg'])
 
@@ -80,22 +87,23 @@ const handleCloseDialog = () => {
     drawer.value = false;
     props.showPopup.value = false;
 }
-
-// 监听showPopup变化
-watch(() => props.showPopup, (newVal) => {
-    if (newVal) {
-        console.log('showPopup changed to true', newVal); // 当showPopup为true时触发打印
-        drawer.value = true
-    }
-});
-
-onMounted(() => {
-    console.log('啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊Component mounted初始化', props.showPopup.value);
-
-});
 </script>
 
 <style scoped>
+.tipsText{
+    font-size: 18px;
+    font-weight: 800;
+    color: red;
+    position: fixed;
+    left: 52%;
+    bottom: 20px;
+}
+.confirm-txt{
+    display: block;
+    margin: 1rem;
+    font-weight: 600;
+    color:red;
+}
 </style>
 
 <style>

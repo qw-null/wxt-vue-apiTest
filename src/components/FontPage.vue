@@ -7,13 +7,14 @@
         </el-col>
         <el-col :span="20">
           <div class="urlContainer">
-            <el-tag type="primary" size="medium" effect="light" class="urlBtn">{{ urlHostname}}</el-tag>
+            <el-tag type="primary" effect="light" class="urlBtn">{{ urlHostname}}</el-tag>
           </div>
         </el-col>
       </el-row>
     </el-header>
-    <el-main>
-      <h3>使用教程：</h3>
+    <el-main class="elMain">
+      <div class="title">科研院智能台账助手</div>
+      <p>使用教程📖</p>
       <p>第一步：xxxx;</p>
       <p>第二步：xxxx;</p>
       <p>第三步：xxxx;</p>
@@ -55,6 +56,9 @@ onMounted(async () => {
   align-items: center;
   /* background-color: red; */
 }
+.elMain{
+  margin-top: -10px;
+}
 
 .logo {
   width: 2rem;
@@ -90,5 +94,11 @@ onMounted(async () => {
   margin: 5px 10px;
   border-radius: 4px;
   letter-spacing: 1px;
+}
+.title{
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  margin-top: -10px;
 }
 </style>

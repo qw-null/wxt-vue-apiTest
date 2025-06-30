@@ -10761,15 +10761,6 @@ Expected function or array of functions, received type ${typeof value}.`
         drawer.value = false;
         props2.showPopup.value = false;
       };
-      watch(() => props2.showPopup, (newVal) => {
-        if (newVal) {
-          console.log("showPopup changed to true", newVal);
-          drawer.value = true;
-        }
-      });
-      onMounted(() => {
-        console.log("啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊Component mounted初始化", props2.showPopup.value);
-      });
       const __returned__ = { props: props2, dialogVisible, drawer, handleClose, openDialog, handleCloseDialog, get SuccessFilled() {
         return success_filled_default;
       }, get CircleCloseFilled() {
@@ -10792,18 +10783,24 @@ Expected function or array of functions, received type ${typeof value}.`
   const _hoisted_3 = { class: "drawer-footer" };
   function _sfc_render$s(_ctx, _cache, $props, $setup, $data, $options) {
     const _component_el_descriptions_item = resolveComponent("el-descriptions-item");
-    const _component_el_tag = resolveComponent("el-tag");
     const _component_el_descriptions = resolveComponent("el-descriptions");
     const _component_el_button = resolveComponent("el-button");
     const _component_el_drawer = resolveComponent("el-drawer");
     const _component_el_dialog = resolveComponent("el-dialog");
     return openBlock(), createElementBlock("div", _hoisted_1, [
+      _cache[18] || (_cache[18] = createBaseVNode(
+        "div",
+        { class: "tipsText" },
+        "（点击保存草稿生成项目台账）➡️",
+        -1
+        /* HOISTED */
+      )),
       createVNode(_component_el_drawer, {
         modelValue: $setup.props.showPopup.value,
         "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => $setup.props.showPopup.value = $event),
         title: "内部科研项目支出台账",
         direction: "ltr",
-        "before-close": $setup.handleClose,
+        "before-close": $setup.handleCloseDialog,
         class: "el-drawer",
         size: "50%"
       }, {
@@ -10814,21 +10811,22 @@ Expected function or array of functions, received type ${typeof value}.`
               icon: $setup.SuccessFilled,
               onClick: $setup.openDialog
             }, {
-              default: withCtx(() => _cache[12] || (_cache[12] = [
+              default: withCtx(() => _cache[13] || (_cache[13] = [
                 createTextVNode("确定")
               ])),
               _: 1,
-              __: [12]
+              __: [13]
             }, 8, ["icon"]),
             createVNode(_component_el_button, {
               type: "info",
-              icon: $setup.CircleCloseFilled
+              icon: $setup.CircleCloseFilled,
+              onClick: $setup.handleCloseDialog
             }, {
-              default: withCtx(() => _cache[13] || (_cache[13] = [
+              default: withCtx(() => _cache[14] || (_cache[14] = [
                 createTextVNode("取消")
               ])),
               _: 1,
-              __: [13]
+              __: [14]
             }, 8, ["icon"])
           ])
         ]),
@@ -10842,7 +10840,7 @@ Expected function or array of functions, received type ${typeof value}.`
             }, {
               default: withCtx(() => [
                 createVNode(_component_el_descriptions_item, null, {
-                  label: withCtx(() => _cache[2] || (_cache[2] = [
+                  label: withCtx(() => _cache[3] || (_cache[3] = [
                     createBaseVNode(
                       "div",
                       { class: "cell-item" },
@@ -10852,13 +10850,13 @@ Expected function or array of functions, received type ${typeof value}.`
                     )
                   ])),
                   default: withCtx(() => [
-                    _cache[3] || (_cache[3] = createTextVNode(" kooriookami "))
+                    _cache[4] || (_cache[4] = createTextVNode(" kooriookami "))
                   ]),
                   _: 1,
-                  __: [3]
+                  __: [4]
                 }),
                 createVNode(_component_el_descriptions_item, null, {
-                  label: withCtx(() => _cache[4] || (_cache[4] = [
+                  label: withCtx(() => _cache[5] || (_cache[5] = [
                     createBaseVNode(
                       "div",
                       { class: "cell-item" },
@@ -10868,13 +10866,13 @@ Expected function or array of functions, received type ${typeof value}.`
                     )
                   ])),
                   default: withCtx(() => [
-                    _cache[5] || (_cache[5] = createTextVNode(" 18100000000 "))
+                    _cache[6] || (_cache[6] = createTextVNode(" 18100000000 "))
                   ]),
                   _: 1,
-                  __: [5]
+                  __: [6]
                 }),
                 createVNode(_component_el_descriptions_item, null, {
-                  label: withCtx(() => _cache[6] || (_cache[6] = [
+                  label: withCtx(() => _cache[7] || (_cache[7] = [
                     createBaseVNode(
                       "div",
                       { class: "cell-item" },
@@ -10884,13 +10882,13 @@ Expected function or array of functions, received type ${typeof value}.`
                     )
                   ])),
                   default: withCtx(() => [
-                    _cache[7] || (_cache[7] = createTextVNode(" Suzhou "))
+                    _cache[8] || (_cache[8] = createTextVNode(" Suzhou "))
                   ]),
                   _: 1,
-                  __: [7]
+                  __: [8]
                 }),
                 createVNode(_component_el_descriptions_item, null, {
-                  label: withCtx(() => _cache[8] || (_cache[8] = [
+                  label: withCtx(() => _cache[9] || (_cache[9] = [
                     createBaseVNode(
                       "div",
                       { class: "cell-item" },
@@ -10900,19 +10898,13 @@ Expected function or array of functions, received type ${typeof value}.`
                     )
                   ])),
                   default: withCtx(() => [
-                    createVNode(_component_el_tag, null, {
-                      default: withCtx(() => _cache[9] || (_cache[9] = [
-                        createTextVNode("School")
-                      ])),
-                      _: 1,
-                      __: [9]
-                    })
+                    _cache[10] || (_cache[10] = createTextVNode(" School "))
                   ]),
-                  _: 1
-                  /* STABLE */
+                  _: 1,
+                  __: [10]
                 }),
                 createVNode(_component_el_descriptions_item, null, {
-                  label: withCtx(() => _cache[10] || (_cache[10] = [
+                  label: withCtx(() => _cache[11] || (_cache[11] = [
                     createBaseVNode(
                       "div",
                       { class: "cell-item" },
@@ -10922,36 +10914,69 @@ Expected function or array of functions, received type ${typeof value}.`
                     )
                   ])),
                   default: withCtx(() => [
-                    _cache[11] || (_cache[11] = createTextVNode(" No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province "))
+                    _cache[12] || (_cache[12] = createTextVNode(" No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province "))
                   ]),
                   _: 1,
-                  __: [11]
+                  __: [12]
                 })
               ]),
               _: 1
               /* STABLE */
             })
-          ])
+          ]),
+          createTextVNode(
+            " 信息：" + toDisplayString($setup.props.msg) + " ",
+            1
+            /* TEXT */
+          )
         ]),
         _: 1
         /* STABLE */
       }, 8, ["modelValue"]),
       createVNode(_component_el_dialog, {
         modelValue: $setup.dialogVisible,
-        "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => $setup.dialogVisible = $event),
-        title: "Tips",
+        "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event) => $setup.dialogVisible = $event),
+        title: "🔔 信息确认",
         width: "500",
-        "before-close": $setup.handleCloseDialog
+        center: ""
       }, {
-        default: withCtx(() => _cache[14] || (_cache[14] = [
-          createTextVNode("1111111")
-        ])),
+        footer: withCtx(() => [
+          createVNode(_component_el_button, {
+            type: "info",
+            onClick: _cache[1] || (_cache[1] = ($event) => $setup.dialogVisible = false)
+          }, {
+            default: withCtx(() => _cache[15] || (_cache[15] = [
+              createTextVNode("取消")
+            ])),
+            _: 1,
+            __: [15]
+          }),
+          createVNode(_component_el_button, {
+            type: "primary",
+            onClick: $setup.handleCloseDialog
+          }, {
+            default: withCtx(() => _cache[16] || (_cache[16] = [
+              createTextVNode("上传")
+            ])),
+            _: 1,
+            __: [16]
+          })
+        ]),
+        default: withCtx(() => [
+          _cache[17] || (_cache[17] = createBaseVNode(
+            "span",
+            { class: "confirm-txt" },
+            "是否上传《差旅费报销单》用于项目台账生成？",
+            -1
+            /* HOISTED */
+          ))
+        ]),
         _: 1,
-        __: [14]
+        __: [17]
       }, 8, ["modelValue"])
     ]);
   }
-  const AlertPopup = /* @__PURE__ */ _export_sfc$1(_sfc_main$2B, [["render", _sfc_render$s], ["__file", "F:/Qinwei文件夹/wxt-vue-apiTest/src/components/AlertPopup.vue"]]);
+  const AlertPopup = /* @__PURE__ */ _export_sfc$1(_sfc_main$2B, [["render", _sfc_render$s], ["__scopeId", "data-v-3cf84248"], ["__file", "/Users/qinwei/Desktop/工作/Project/浏览器插件/wxt-vue-apiTest/src/components/AlertPopup.vue"]]);
   const version = "2.10.2";
   const INSTALLED_KEY = Symbol("INSTALLED_KEY");
   const configProviderContextKey = Symbol();
@@ -67374,11 +67399,13 @@ For more detail, please visit: ${ref2}
   ];
   var installer = makeInstaller([...Components, ...Plugins]);
   const definition = defineContentScript({
-    matches: ["*://*/*"],
+    // matches: ['*://*/*'],
+    matches: ["https://rs.ctg.com.cn/*"],
     // 设置 cssInjectionMode
     cssInjectionMode: "ui",
-    // matches: ['https://rs.ctg.com.cn:9000/#/reimbs/businessTrip/*'],
     async main(ctx) {
+      const isTargetPage = window.location.port === "9000" && window.location.hash.startsWith("#/reimbs/businessTrip");
+      if (!isTargetPage) return;
       const showPopup = ref(false);
       const msg = ref({});
       ref("");
@@ -67416,7 +67443,7 @@ For more detail, please visit: ${ref2}
           browser.runtime.sendMessage({
             action: "CTG_toBackgroundResponse",
             url: event.data.url,
-            response: event.data.response
+            response: event.data
           });
         }
       });

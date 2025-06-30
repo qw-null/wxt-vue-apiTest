@@ -20,12 +20,13 @@ var injected = function() {
       this.addEventListener("readystatechange", () => {
         if (this.readyState === 4) {
           const response = this.responseText;
-          console.log("===抓到信息====", response);
-          window.postMessage({
-            type: "CTG_NETWORK_RESPONSE",
-            url: this._url,
-            response
-          }, "*");
+          if (this._url && this._url.includes("/reimb/bill/businessTrip")) {
+            window.postMessage({
+              type: "CTG_NETWORK_RESPONSE",
+              url: this._url,
+              response
+            }, "*");
+          }
         }
       });
       originalXHRSend.apply(this, arguments);

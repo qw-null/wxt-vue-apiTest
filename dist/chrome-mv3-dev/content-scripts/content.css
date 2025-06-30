@@ -1,4 +1,19 @@
 @charset "UTF-8";@import 'element-plus/dist/index.css';
+.tipsText[data-v-3cf84248]{
+    font-size: 18px;
+    font-weight: 800;
+    color: red;
+    position: fixed;
+    left: 52%;
+    bottom: 20px;
+}
+.confirm-txt[data-v-3cf84248]{
+    display: block;
+    margin: 1rem;
+    font-weight: 600;
+    color:red;
+}
+
 :host {
     /* Element Plus 样式需穿透 Shadow DOM */
 

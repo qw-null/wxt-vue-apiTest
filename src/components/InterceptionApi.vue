@@ -11,8 +11,10 @@
     font-weight: 800;
     color: red;
     position: fixed;
+    width: 80px;
+    height: 80px;
     left: 0;
     top: 0;
-    z-index: 99999;
+    z-index: 999;
 }
 </style>

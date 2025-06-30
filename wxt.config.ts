@@ -23,7 +23,7 @@ export default defineConfig({
     ],
     web_accessible_resources: [{
       resources: ["injected.js"], // 允许被页面访问的资源
-      matches: ["*://*/*"]        // 允许的域名，全部 ["*://*/*"]
+      matches: ["https://rs.ctg.com.cn/*"]        // 允许的域名，全部 ["*://*/*"]
     }],
   }
 });

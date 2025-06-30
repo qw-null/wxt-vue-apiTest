@@ -24,7 +24,7 @@
         "injected.js"
       ],
       "matches": [
-        "*://*/*"
+        "https://rs.ctg.com.cn/*"
       ]
     },
     {
@@ -32,7 +32,7 @@
         "content-scripts/content.css"
       ],
       "matches": [
-        "*://*/*"
+        "https://rs.ctg.com.cn/*"
       ]
     }
   ],
@@ -53,7 +53,7 @@
     "default_popup": "popup.html"
   },
   "host_permissions": [
-    "*://*/*",
+    "https://rs.ctg.com.cn/*",
     "http://localhost/*"
   ],
   "content_security_policy": {
