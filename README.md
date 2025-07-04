@@ -1,8 +1,5 @@
-# WXT + Vue 3
+## solve_sync分支
+该分支解决如下问题：
+页面“保存草稿”按钮点击（同步任务）之后，展示通过API接口获取的数据（异步）。
 
-This template should help get you started developing with Vue 3 in WXT.
-
-## Recommended IDE Setup
-
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar).
-# wxt-vue-apiTest
+必须保证异步任务结束之后，才能执行同步任务。
