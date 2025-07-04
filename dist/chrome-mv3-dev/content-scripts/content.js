@@ -67407,10 +67407,12 @@ For more detail, please visit: ${ref2}
       const isTargetPage = window.location.port === "9000" && window.location.hash.startsWith("#/reimbs/businessTrip");
       if (!isTargetPage) return;
       const showPopup = ref(false);
-      const msg = ref({});
-      ref("");
+      const msg = ref(null);
       const eventBus = new EventTarget();
-      let resMsg = {};
+      let latestApiData = null;
+      let isWaitingForResponse = false;
+      let lastButtonClickTime = 0;
+      const responseQueue = [];
       const ui = await createShadowRootUi(ctx, {
         name: "vue-ui",
         position: "inline",
@@ -67420,10 +67422,11 @@ For more detail, please visit: ${ref2}
             showPopup,
             msg
           });
-          eventBus.addEventListener("OPEN_POPUP", () => {
-            console.log("监听到外部事件Open——popup", resMsg);
-            showPopup.value = true;
-            msg.value = resMsg;
+          eventBus.addEventListener("OPEN_POPUP", (e) => {
+            if (e.detail && e.detail.data) {
+              showPopup.value = true;
+              msg.value = e.detail.data;
+            }
           });
           app.use(installer);
           app.mount(container);
@@ -67435,11 +67438,18 @@ For more detail, please visit: ${ref2}
       });
       ui.mount();
       await injectScript("/injected.js");
+      console.log("JS脚本已注入");
       window.addEventListener("message", (event) => {
         var _a3;
         if (((_a3 = event.data) == null ? void 0 : _a3.type) === "CTG_NETWORK_RESPONSE") {
           console.log("将数据转发到后台脚本", event.data);
-          resMsg = event.data;
+          const responseWithTimestamp = {
+            ...event.data,
+            timestamp: Date.now()
+          };
+          console.log("API数据已接收:", responseWithTimestamp);
+          responseQueue.push(responseWithTimestamp);
+          processResponseQueue();
           browser.runtime.sendMessage({
             action: "CTG_toBackgroundResponse",
             url: event.data.url,
@@ -67451,10 +67461,42 @@ For more detail, please visit: ${ref2}
         const target = e.target;
         console.log("点击了按钮click click", target.innerText);
         if (target.innerText == "保存草稿") {
-          console.log("=================点击了保存草稿按钮");
-          eventBus.dispatchEvent(new CustomEvent("OPEN_POPUP"));
+          console.log("===点击了保存草稿按钮==");
+          lastButtonClickTime = Date.now();
+          isWaitingForResponse = true;
+          setTimeout(() => {
+            if (isWaitingForResponse) {
+              console.warn("等待API响应超时");
+              isWaitingForResponse = false;
+              eventBus.dispatchEvent(new CustomEvent("OPEN_POPUP", {
+                detail: {
+                  data: {
+                    type: "TIMEOUT_ERROR",
+                    message: "API响应超时，请重试",
+                    timestamp: Date.now()
+                  }
+                }
+              }));
+            }
+          }, 5e3);
         }
       });
+      function processResponseQueue() {
+        while (responseQueue.length > 0) {
+          const response = responseQueue.shift();
+          if (isWaitingForResponse && response) {
+            if (response.timestamp > lastButtonClickTime) {
+              console.log("匹配到最新的API响应");
+              isWaitingForResponse = false;
+              latestApiData = response;
+              eventBus.dispatchEvent(new CustomEvent("OPEN_POPUP", {
+                detail: { data: latestApiData }
+              }));
+              break;
+            }
+          }
+        }
+      }
     }
   });
   content;
